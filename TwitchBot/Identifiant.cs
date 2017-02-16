@@ -10,6 +10,5 @@ namespace TwitchBot
     {
         static public string PSEUDO = "ducmirack";
         static public string OAUTHKEY = "oauth:qfcb61okru4jyynjjtlz2qvxe2t07e";
-        int a;
     }
 }

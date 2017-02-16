@@ -10,6 +10,7 @@ namespace TwitchBot
     {
         static void Main(string[] args)
         {
+            int a;
             IrcClient irc = new IrcClient("irc.twitch.tv", 6667, Identifiant.PSEUDO, Identifiant.OAUTHKEY);
             irc.joinRoom("ducmirack");
             while (true)
