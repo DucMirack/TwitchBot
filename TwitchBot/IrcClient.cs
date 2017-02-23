@@ -9,7 +9,7 @@ using System.IO;
 
 namespace TwitchBot
 {
-    class IrcClient
+    public class IrcClient : IDisposable
     {
         private string channel;
         private string userName;
@@ -21,15 +21,28 @@ namespace TwitchBot
         public IrcClient(string ip, int port, string userName, string password)
         {
             this.userName = userName;
+            this.start(ip, port, userName, password);
+        }
 
+        private void connect(string ip, int port)
+        {
             tcpClient = new TcpClient(ip, port);
             inputStream = new StreamReader(tcpClient.GetStream());
             outputStream = new StreamWriter(tcpClient.GetStream());
+        }
 
+        private void authenticate(string userName, string password)
+        {
             outputStream.WriteLine("PASS " + password);
             outputStream.WriteLine("NICK " + userName);
             outputStream.WriteLine("USER " + userName + " 8 * :" + userName);
-            outputStream.Flush(); 
+            outputStream.Flush();
+        }
+
+        private void start(string ip, int port, string userName, string password)
+        {
+            this.connect(ip, port);
+            this.authenticate(userName, password);
         }
 
         public void joinRoom(string channel)
@@ -54,6 +67,13 @@ namespace TwitchBot
         {
             string message = inputStream.ReadLine();
             return message;
+        }
+
+        public void Dispose()
+        {
+            if (inputStream != null) {
+                inputStream.Close();
+            }
         }
     }
 }

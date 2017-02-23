@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Identifiant.cs" />
     <Compile Include="IrcClient.cs" />
+    <Compile Include="MessagePeriodique.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

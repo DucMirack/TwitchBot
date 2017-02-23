@@ -3,32 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace TwitchBot
 {
     class Program
     {
-
+        private static IrcClient Irc { get; set; }
 
         static void Main(string[] args)
         {
-            IrcClient irc = new IrcClient("irc.twitch.tv", 6667, Identifiant.PSEUDO, Identifiant.OAUTHKEY);
-            irc.joinRoom("tharsanhalo");
-
-            //********* PARTIE MESSAGE PERIODIQUE ***************//
-            var timer = new System.Threading.Timer((e) =>
+            using (Irc = new IrcClient("irc.twitch.tv", 6667, Identifiant.PSEUDO, Identifiant.OAUTHKEY))
             {
-                irc.sendChatMessage("Bienvenue, Streamers !");
-            }, null, 0, TimeSpan.FromMinutes(1).Minutes);
+                Irc.joinRoom("tharsanhalo");
 
-            while (true)
-            {
-                string message = irc.readMessage();
-                if (message != null)
+                //********* MESSAGE PERIODIQUE ***************//
+                MessagePeriodique.initTimer(Irc);
+
+                while (true)
                 {
-                    if (message.Contains("!hello"))
+                    string message = Irc.readMessage();
+                    if (message != null)
                     {
-                        irc.sendChatMessage("Yo yo");
+                        if (message.Contains("!hello"))
+                        {
+                            Irc.sendChatMessage("Yo yo");
+                        }
                     }
                 }
             }
