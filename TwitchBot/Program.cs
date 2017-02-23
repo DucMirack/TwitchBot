@@ -10,16 +10,15 @@ namespace TwitchBot
     {
         static void Main(string[] args)
         {
-            int a;
-            int b;
-            IrcClient irc = new IrcClient("irc.twitch.tv", 6667, Identifiant.PSEUDO, Identifiant.OAUTHKEY);
+            IrcClient irc = new IrcClient("irc.chat.twitch.tv", 6667, Identifiant.PSEUDO, Identifiant.OAUTHKEY);
             irc.joinRoom("ducmirack");
             while (true)
             {
-                string message = irc.readMessage();
-                if (message.Contains("!hello"))
+                Message message = Message.Parse(irc.readMessage());
+                if (message != null)
                 {
-                    irc.sendChatMessage("Yo yo");
+                    Console.WriteLine(message.ToString());
+                    //irc.sendIrcMessage("salut");
                 }
             }
         }

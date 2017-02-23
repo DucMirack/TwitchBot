@@ -9,6 +9,6 @@ namespace TwitchBot
     static public class Identifiant
     {
         static public string PSEUDO = "ducmirack";
-        static public string OAUTHKEY = "oauth:qfcb61okru4jyynjjtlz2qvxe2t07e";
+        static public string OAUTHKEY = "oauth:bpgb4qhw0g9mun5vzxmzqthf45urrk";
     }
 }
