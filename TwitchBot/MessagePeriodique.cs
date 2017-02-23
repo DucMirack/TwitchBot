@@ -11,12 +11,12 @@ namespace TwitchBot
     {
         private static IrcClient irc;
         private static Timer timer;
-        private const double TWOMIN = 120000;
+        private const double ONEMIN = 60000;
          
         public static void initTimer(IrcClient _irc)
         {
             irc = _irc;
-            timer = new Timer(TWOMIN);
+            timer = new Timer(ONEMIN);
             timer.Elapsed += Timer_Elapsed;
             timer.Start();
         }

@@ -25,6 +25,9 @@ namespace TwitchBot
                 //********* MESSAGE PERIODIQUE ***************//
                 MessagePeriodique.initTimer(Irc);
 
+                //********** SYSTEME DE VOTE ****************//
+                SystemVote systemVote = new SystemVote(Irc);
+
                 while (true)
                 {
                     string message = Irc.readMessage();
@@ -35,51 +38,17 @@ namespace TwitchBot
                         if (message.Contains("!vote"))  // Test msg : !vote Quelle jeu aimez-vous ? witcher assassin pacman
                         {
                             string propositionAll = message.Substring(message.IndexOf('?') + 2);
-                            if (propositionAll != "")
-                            {
-                                string[] msgPropos = propositionAll.Split(' ');
-                                string sendPropo = "Vote : ";
-                                foreach (string propo in msgPropos)
-                                {
-                                    sendPropo += "!" + propo + " ";
-                                    propositions.Add("!" + propo, 0);
-                                }
-
-                                Irc.sendChatMessage(sendPropo);
-                                isStartVoting = true;
-                            }
+                            systemVote.startVote(propositionAll);
                         }
 
-                        if (isStartVoting)
+                        if (systemVote.isStartVoting)
                         {
                             // Terminer le vote
-                            if (message.Contains("!endvote"))
-                            {
-                                isStartVoting = false;
-                                Irc.sendChatMessage("Le vote est terminé !");
-                                string recapMsg = "/me RECAP : ";
-                                string gagnant = "";
-                                int maxVal = 0;
-                                foreach (KeyValuePair<string, int> prop in propositions) {
-                                    if (prop.Value > maxVal) {
-                                        gagnant = "/me LE GAGNANT EST : " + prop.Key;
-                                    }
-                                    recapMsg += prop.Key + " : " + prop.Value.ToString() + ", ";
-                                    maxVal = prop.Value;
-                                }
-                                propositions.Clear();
-                                Irc.sendChatMessage(recapMsg);
-                                Irc.sendChatMessage(gagnant);
+                            if (message.Contains("!endvote")) {
+                                systemVote.endVote();
                             }
 
-                            foreach (KeyValuePair<string, int> prop in propositions)
-                            {
-                                if (message.Contains(prop.Key)) {
-                                    propositions[prop.Key] += 1;
-                                    Irc.sendChatMessage(prop.Key + " : " + propositions[prop.Key].ToString());
-                                    break;
-                                }
-                            }
+                            systemVote.setValProposition(message);
                         }
                     }
                 }
