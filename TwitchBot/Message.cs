@@ -17,6 +17,7 @@ namespace TwitchBot
             if (value == null)
             {
                 throw new ArgumentNullException("value", "The value must be specified.");
+                //coucougros
             }
 
             Message message;
