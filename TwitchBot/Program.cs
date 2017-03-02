@@ -15,6 +15,17 @@ namespace TwitchBot
             while (true)
             {
                 Message message = Message.Parse(irc.readMessage());
+                if (message is ServerMessage)
+                {
+                    ServerMessage my_message = message as ServerMessage;
+                    //traitement pour un serverMessage
+                }
+                if (message is ChatMessage)
+                {
+                    ChatMessage my_message = message as ChatMessage;
+                    //traitement pour un chatMessage
+                }
+
                 if (message != null)
                 {
                     Console.WriteLine(message.ToString());

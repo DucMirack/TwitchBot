@@ -24,12 +24,6 @@ namespace TwitchBot
 
         public static bool TryParse(string value, out Message message)
         {
-            //if (!value.StartsWith(":tmi.twitch.tv", StringComparison.OrdinalIgnoreCase))
-            //{
-            //    message = null;
-            //    return false;
-            //}
-
             string[] values = value.Split(' ');
             string text = null;
             for (int i = 3; i < values.Length; i++)

@@ -12,11 +12,6 @@ namespace TwitchBot
         {
         }
 
-        
-
-        
-               
-
         public static Message Parse(string value)
         {
             if (value == null)
@@ -27,19 +22,16 @@ namespace TwitchBot
             Message message;
             if (ChatMessage.TryParse(value, out message))
             {
-                return message;
+                return message as ChatMessage;
             }
 
             if (ServerMessage.TryParse(value, out message))
             {
-                return message;
+                return message as ServerMessage;
             }
 
             throw new NotImplementedException(string.Concat("New Message Class To Implement For Value: ", value));
-
-
-
-
+            
             ////if (!value.Contains("@"))
             ////{
             ////    throw new ArgumentException("The value is not an IRC message.", "value");
@@ -61,9 +53,4 @@ namespace TwitchBot
             //return new Message(userName, value, "ducmirack");
         }
     }
-
-    //public enum MessageType
-    //{
-    //    PRIVMSG
-    //}
 }
