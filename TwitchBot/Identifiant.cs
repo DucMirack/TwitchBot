@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TwitchBot
 {
-    public static class Identifiant
+    static public class Identifiant
     {
-        public static string PSEUDO = "tharsanhalo";
-        public static string OAUTHKEY = "oauth:xru0eg6tzqfw2y149z0wv9dz91jne2";
+        static public string PSEUDO = "ducmirack";
+        static public string OAUTHKEY = "oauth:bpgb4qhw0g9mun5vzxmzqthf45urrk";
     }
 }

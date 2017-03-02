@@ -48,6 +48,7 @@ namespace TwitchBot
         public void joinRoom(string channel)
         {
             this.channel = channel;
+            // "Join #" permets de rejoindre un channel
             outputStream.WriteLine("JOIN #" + channel);
             outputStream.Flush();
         }
@@ -58,9 +59,10 @@ namespace TwitchBot
             outputStream.Flush();
         }
 
-        public void sendChatMessage(string message)
+        public void sendChatMessage(string value)
         {
-            sendIrcMessage(":" + userName + "!" + userName + "@" + userName + ".tmi.twitch.tv PRIVMSG #" + channel + " :" + message);
+            ChatMessage message = new ChatMessage(this.userName, ChatMessage.ChatMessageType.PRIVMSG, this.channel, value);
+            sendIrcMessage(message.ToString());
         }
 
         public string readMessage()
