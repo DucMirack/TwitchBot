@@ -22,6 +22,7 @@ namespace TwitchBot
 
         public string Text { get; private set; }
 
+        // Utilisé dans la classe Message pour savoir si le message est un message de serveur
         public static bool TryParse(string value, out Message message)
         {
             string[] values = value.Split(' ');

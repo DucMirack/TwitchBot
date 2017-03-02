@@ -24,13 +24,13 @@ namespace TwitchBot
                 {
                     ChatMessage my_message = message as ChatMessage;
                     //traitement pour un chatMessage
+                    Console.WriteLine(my_message.Text);
                 }
 
-                if (message != null)
-                {
-                    Console.WriteLine(message.ToString());
-                    //irc.sendIrcMessage("salut");
-                }
+                //if (message != null)
+                //{
+                //    Console.WriteLine(message.ToString());
+                //}
             }
         }
     }
