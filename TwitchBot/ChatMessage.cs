@@ -30,7 +30,6 @@ namespace TwitchBot
             return string.Concat(":", UserName, "!", UserName, "@", UserName, ".tmi.twitch.tv ", Type, " #", Channel, " :", Text);
         }
 
-        // Utilisé dans la classe Message pour savoir si le message est un message de chat
         public static bool TryParse(string value, out Message message)
         {
             ChatMessageType? type = ExtractChatMessageType(value);
@@ -70,6 +69,8 @@ namespace TwitchBot
 
             return null;
         }
+
+
 
         public enum ChatMessageType
         {
