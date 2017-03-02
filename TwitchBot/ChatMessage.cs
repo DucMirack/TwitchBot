@@ -71,6 +71,8 @@ namespace TwitchBot
             return null;
         }
 
+
+
         public enum ChatMessageType
         {
             PRIVMSG,
