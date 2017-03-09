@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using System.IO;
+using TwitchBot.Functionalities;
 
 namespace TwitchBot
 {
@@ -18,9 +19,17 @@ namespace TwitchBot
         private StreamReader inputStream;
         private StreamWriter outputStream;
 
+        private List<Functionality> functionalities;
+
+        public event EventHandler<ChatMessage> OnMessageReceived = null;
+
         public IrcClient(string ip, int port, string userName, string password)
         {
             this.userName = userName;
+            functionalities = new List<Functionality>();
+            functionalities.Add(new PeriodicalMessageFunctionality(this, 60000));
+            functionalities.Add(new VoteFunctionality(this));
+            functionalities.Add(new TirageSortFunctionality(this));
             this.start(ip, port, userName, password);
         }
 
@@ -43,6 +52,11 @@ namespace TwitchBot
         {
             this.connect(ip, port);
             this.authenticate(userName, password);
+
+            foreach(Functionality functionality in functionalities)
+            {
+                functionality.Start();
+            }
         }
 
         public void joinRoom(string channel)
@@ -68,11 +82,32 @@ namespace TwitchBot
         public string readMessage()
         {
             string message = inputStream.ReadLine();
+
+            Message msg = Message.Parse(message);
+
+            if (msg is ServerMessage)
+            { //traitement pour un serverMessage
+                ServerMessage my_message = msg as ServerMessage;
+            }
+            if (msg is ChatMessage) //traitement pour un chatMessage
+            {
+                ChatMessage my_message = msg as ChatMessage;
+
+                if (my_message.Text != null)
+                {
+                    OnMessageReceived?.Invoke(this, my_message);
+                }
+            }
             return message;
         }
 
         public void Dispose()
         {
+            foreach (Functionality functionality in functionalities)
+            {
+                functionality.Stop();
+            }
+
             if (inputStream != null) {
                 inputStream.Close();
             }

@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publier\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -59,14 +59,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChatMessage.cs" />
+    <Compile Include="Functionalities\Functionality.cs" />
+    <Compile Include="Functionalities\TirageSortFunctionality.cs" />
     <Compile Include="Identifiant.cs" />
     <Compile Include="IrcClient.cs" />
     <Compile Include="Message.cs" />
-    <Compile Include="MessagePeriodique.cs" />
+    <Compile Include="Functionalities\PeriodicalMessageFunctionality.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerMessage.cs" />
-    <Compile Include="SystemVote.cs" />
+    <Compile Include="Functionalities\VoteFunctionality.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
