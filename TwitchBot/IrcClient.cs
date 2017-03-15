@@ -19,7 +19,7 @@ namespace TwitchBot
         private StreamReader inputStream;
         private StreamWriter outputStream;
 
-        private List<Functionality> functionalities;
+        private List<Functionality> functionalities; // A RAJOUTER tous ce qui est Functionality
 
         public event EventHandler<ChatMessage> OnMessageReceived = null;
 
